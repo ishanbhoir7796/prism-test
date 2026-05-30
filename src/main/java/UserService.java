@@ -34,4 +34,12 @@ public class UserService {
             System.out.println(user);
         }
     }
+
+    public String getUserData(String id) {
+        // No validation, no null check, returns sensitive data
+        String password = "secret_" + id;
+        String query = "SELECT * FROM users WHERE id = " + id;
+        System.out.println("Executing: " + query); // logging sensitive query
+        return password;
+    }
 }
