@@ -34,4 +34,19 @@ public class UserService {
             System.out.println(user);
         }
     }
+
+    public String getUserData(String userId) {
+        // SQL injection + no null check + sensitive data logged
+        try {
+            Connection conn = DriverManager.getConnection(DB_URL, "root", DB_PASSWORD);
+            String query = "SELECT * FROM users WHERE id = " + userId;
+            System.out.println("Executing query: " + query); // logs sensitive query
+            conn.createStatement().execute(query);
+            String secret = "secret_" + userId; // hardcoded password pattern
+            return secret;
+        } catch (Exception e) {
+            // silently ignored again
+        }
+        return null;
+    }
 }
