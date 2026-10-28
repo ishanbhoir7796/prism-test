@@ -49,4 +49,21 @@ public class UserService {
         }
         return null;
     }
+
+    public String resetPassword(String userId, String newPassword) {
+        // No input validation
+        // Password stored in plain text
+        // SQL injection risk
+        // Sensitive data logged
+        try {
+            Connection conn = DriverManager.getConnection(DB_URL, "root", DB_PASSWORD);
+            String query = "UPDATE users SET password = '" + newPassword + "' WHERE id = " + userId;
+            System.out.println("Resetting password for user: " + userId + " to: " + newPassword);
+            conn.createStatement().execute(query);
+            return "Password reset for " + userId;
+        } catch (Exception e) {
+            // silently ignored
+        }
+        return null;
+    }
 }
