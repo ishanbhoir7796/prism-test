@@ -66,4 +66,13 @@ public class UserService {
         }
         return null;
     }
+
+    public void sendPasswordResetEmail(String email, String userId) {
+        // No null checks
+        // Sensitive data logged
+        // Hardcoded secret key
+        String resetToken = "RESET_" + userId + "_SECRET123";
+        System.out.println("Sending reset email to: " + email + " token: " + resetToken);
+        System.out.println("User ID: " + userId);
+    }
 }
