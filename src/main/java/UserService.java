@@ -34,4 +34,36 @@ public class UserService {
             System.out.println(user);
         }
     }
+
+    public String getUserData(String userId) {
+        // SQL injection + no null check + sensitive data logged
+        try {
+            Connection conn = DriverManager.getConnection(DB_URL, "root", DB_PASSWORD);
+            String query = "SELECT * FROM users WHERE id = " + userId;
+            System.out.println("Executing query: " + query); // logs sensitive query
+            conn.createStatement().execute(query);
+            String secret = "secret_" + userId; // hardcoded password pattern
+            return secret;
+        } catch (Exception e) {
+            // silently ignored again
+        }
+        return null;
+    }
+
+    public String resetPassword(String userId, String newPassword) {
+        // No input validation
+        // Password stored in plain text
+        // SQL injection risk
+        // Sensitive data logged
+        try {
+            Connection conn = DriverManager.getConnection(DB_URL, "root", DB_PASSWORD);
+            String query = "UPDATE users SET password = '" + newPassword + "' WHERE id = " + userId;
+            System.out.println("Resetting password for user: " + userId + " to: " + newPassword);
+            conn.createStatement().execute(query);
+            return "Password reset for " + userId;
+        } catch (Exception e) {
+            // silently ignored
+        }
+        return null;
+    }
 }
