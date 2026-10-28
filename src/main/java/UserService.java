@@ -66,4 +66,20 @@ public class UserService {
         }
         return null;
     }
+
+    public List getUsersByRole(String role) {
+        // SQL injection
+        // Raw type
+        // No null check
+        // Sensitive data logged
+        try {
+            Connection conn = DriverManager.getConnection(DB_URL, "root", DB_PASSWORD);
+            String query = "SELECT * FROM users WHERE role = '" + role + "'";
+            System.out.println("DB credentials: " + DB_URL + " password: " + DB_PASSWORD);
+            conn.createStatement().execute(query);
+        } catch (Exception e) {
+            // silently ignored
+        }
+        return new java.util.ArrayList();
+    }
 }
